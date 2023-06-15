@@ -1,0 +1,30 @@
+Please display a table of the relationships between KPI status formulas I just gave you at the level of formula elements (measures, columns, variables, parameters). 
+Be sure to analyze the formulas deeply so as to not miss anything in the SELECT, WHERE, sub-queries, nested queries, or derived tables.
+Crate a column for:
+1. KPI Name - A name for the KPI. Ensure that KPI nodes do not share the same name.
+2. Element Name - A name for the element, start with just the column name. If element nodes come from the same data source, table name, and column name, they should be represented with the same name, otherwise please construct a unique name. For example [FactInternetSales].[SalesAmount] would be SalesAmount.
+3. the data source
+4. Owner - An "owner" property to the KPI nodes, signifying who is responsible for each KPI, such as the Sales Manager or Inventory Manager. 
+5. Full Name - the full name of the element as specified in the formula. For example SalesAmount might be [FactInternetSales].[SalesAmount].
+6. Relationship - state if the element has a "directly proportional" or "inverse reciprocal" relationship in the formula if possible.
+7. Filter - signify if the element appears in the filter of the kpi formula.
+8. Calculation - signify if the element appears in the calculation of the kpi formula. 
+
+Please display another table that attempts to find similarities between elements with different names. It should have:
+
+1. The "from element" name.
+2. The "to element" name.
+3. A brief description of why they might be the same.
+4. A probability (0-1) that they are the same.
+
+Reasons they might be the same:
+
+1. The semantics of the elements' names might suggest they are the same.
+2. Hints below might suggest they are the same. 
+3. If an element formula includes another element, they should be mapped as being related via the inclusion.
+
+Instructions unique to this implementation:
+
+1. SalesAmount is derived from OrderQuantity * UnitPrice. Therefore, SalesAmount should have a CONTAINS relationship to OrderQuantity.
+2. The UnitsBalance and ReorderPoint elements from the Inventory KPI are related to OrderQuantity as they all represent quantities of items. Show this relationship in the graph.
+3. All KPIs are derived from the AdventureWorksDW database. The exception is the Warranty Service KPI, which comes from a custom Warranty database.
