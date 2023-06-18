@@ -3,3 +3,4 @@ In one Cypher script - and don't be lazy list the cypher for every single KPI, E
 Get distinct rows "Element Name", "Full Name", "Data source". Create an Element node for each with name=[Full Name] and Element Name as a property.
 Link the KPI and Element nodes with HAS_ELEMENT on Element Name along with the 3, 6, 7, 8 column values as properties.
 From the 2nd table you just created (the elements that seem similar) add relationships between the elements, along with the probabilites and brief description and call that relationship SIMILAR_TO.
+Use the Cypher format where there is just one CREATE followed by the creation of the kpi, elements, the relationships between the kpi and elements, and similarities between elements.
