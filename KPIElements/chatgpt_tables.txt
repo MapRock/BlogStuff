@@ -1,0 +1,36 @@
+Below are the requested tables.
+
+First, the relationships between KPI status formulas:
+
+| KPI Name              | Element Name    | Data Source       | Owner               | Full Name                          | Relationship           | Filter | Calculation |
+|-----------------------|-----------------|-------------------|---------------------|------------------------------------|------------------------|--------|-------------|
+| SupportTicketKPI      | ProductKey      | AdventureWorksDW  | Support Manager     | dbo.FactSupportTickets.ProductKey  | References             | No     | Yes         |
+| SupportTicketKPI      | ProductKey      | AdventureWorksDW  | Support Manager     | dbo.FactProductInventory.ProductKey| References             | Yes    | Yes         |
+| SupportTicketKPI      | MovementDate    | AdventureWorksDW  | Support Manager     | dbo.FactProductInventory.MovementDate | Directly Proportional | Yes    | No          |
+| SupportTicketKPI      | @SnapshotDate   | AdventureWorksDW  | Support Manager     | N/A                                | Directly Proportional | Yes    | No          |
+| ProfitMarginKPI       | SalesAmount     | AdventureWorksDW  | CFO                 | dbo.FactInternetSales.SalesAmount | Directly Proportional | No     | Yes         |
+| ProfitMarginKPI       | TotalCost       | AdventureWorksDW  | CFO                 | dbo.FactInternetSales.TotalCost   | Inverse Reciprocal    | No     | Yes         |
+| ProfitMarginKPI       | OrderDate       | AdventureWorksDW  | CFO                 | dbo.FactInternetSales.OrderDate   | References             | Yes    | No          |
+| SalesKPIStatus        | SalesAmount     | AdventureWorksDW  | Sales Manager       | dbo.FactInternetSales.SalesAmount | Directly Proportional | No     | Yes         |
+| SalesKPIStatus        | @SalesGoal      | AdventureWorksDW  | Sales Manager       | N/A                                | Inverse Reciprocal    | No     | Yes         |
+| SalesKPIStatus        | OrderDate       | AdventureWorksDW  | Sales Manager       | dbo.FactInternetSales.OrderDate   | References             | Yes    | No          |
+| InventoryKPIStatus    | UnitsBalance    | AdventureWorksDW  | Inventory Manager   | dbo.FactProductInventory.UnitsBalance | Directly Proportional | No     | Yes         |
+| InventoryKPIStatus    | ReorderPoint    | AdventureWorksDW  | Inventory Manager   | dbo.FactProductInventory.ReorderPoint | Directly Proportional | No     | Yes         |
+| InventoryKPIStatus    | MovementDate    | AdventureWorksDW  | Inventory Manager   | dbo.FactProductInventory.MovementDate | Directly Proportional | Yes    | No          |
+| InventoryKPIStatus    | @SnapshotDate   | AdventureWorksDW  | Inventory Manager   | N/A                                | Directly Proportional | Yes    | No          |
+| NewCustomerKPIStatus  | CustomerKey     | AdventureWorksDW  | Marketing Manager   | dbo.FactInternetSales.CustomerKey | References             | No     | Yes         |
+| NewCustomerKPIStatus  | OrderDate       | AdventureWorksDW  | Marketing Manager   | dbo.FactInternetSales.OrderDate   | References             | Yes    | No          |
+| NewCustomerKPIStatus  | @CustomerTarget | AdventureWorksDW  | Marketing Manager   | N/A                                | Inverse Reciprocal    | No     | Yes         |
+| ProfitMarginKPI       | ItemSalesAmount | Warranty Database | Warranty Manager    | dbo.WarrantyFacts.ItemSalesAmount | Directly Proportional | No     |
+
+ Yes         |
+| ProfitMarginKPI       | WarrantyCharges | Warranty Database | Warranty Manager    | dbo.WarrantyFacts.WarrantyCharges | Inverse Reciprocal    | No     | Yes         |
+
+Now, the table that attempts to find similarities between elements with different names:
+
+| From Element    | To Element      | Description                                                             | Probability |
+|-----------------|-----------------|-------------------------------------------------------------------------|-------------|
+| SalesAmount     | OrderQuantity   | SalesAmount is derived from OrderQuantity * UnitPrice.                  | 1.0         |
+| UnitsBalance    | OrderQuantity   | Both represent quantities of items in different contexts.               | 0.8         |
+| ReorderPoint    | OrderQuantity   | Both represent quantities of items in different contexts.               | 0.8         |
+| SalesAmount     | ItemSalesAmount | Semantically they might refer to the same concept but come from different databases and tables. | 0.5         |
