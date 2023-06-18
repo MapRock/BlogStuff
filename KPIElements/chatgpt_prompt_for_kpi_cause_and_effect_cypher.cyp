@@ -1,39 +1,39 @@
-CREATE (kpi1:KPI {name: 'SupportTicketKPI', owner: 'Support Manager'})
-CREATE (kpi2:KPI {name: 'ProfitMarginKPI_CFO', owner: 'CFO'})
-CREATE (kpi3:KPI {name: 'SalesKPIStatus', owner: 'Sales Manager'})
-CREATE (kpi4:KPI {name: 'InventoryKPIStatus', owner: 'Inventory Manager'})
-CREATE (kpi5:KPI {name: 'NewCustomerKPIStatus', owner: 'Marketing Manager'})
-CREATE (kpi6:KPI {name: 'ProfitMarginKPI_Warranty', owner: 'Warranty Manager'})
-
-CREATE (e1:Element {name: 'ProductKey_FactSupportTickets', fullName: 'dbo.FactSupportTickets.ProductKey', dataSource: 'dbo.FactSupportTickets'})
-CREATE (e2:Element {name: 'ProductKey_FactProductInventory', fullName: 'dbo.FactProductInventory.ProductKey', dataSource: 'dbo.FactProductInventory'})
-CREATE (e3:Element {name: 'MovementDate_FactProductInventory', fullName: 'dbo.FactProductInventory.MovementDate', dataSource: 'dbo.FactProductInventory'})
-CREATE (e4:Element {name: 'SalesAmount_FactInternetSales', fullName: 'dbo.FactInternetSales.SalesAmount', dataSource: 'dbo.FactInternetSales'})
-CREATE (e5:Element {name: 'TotalCost_FactInternetSales', fullName: 'dbo.FactInternetSales.TotalCost', dataSource: 'dbo.FactInternetSales'})
-CREATE (e6:Element {name: 'OrderDate_FactInternetSales', fullName: 'dbo.FactInternetSales.OrderDate', dataSource: 'dbo.FactInternetSales'})
-CREATE (e7:Element {name: 'UnitsBalance_FactProductInventory', fullName: 'dbo.FactProductInventory.UnitsBalance', dataSource: 'dbo.FactProductInventory'})
-CREATE (e8:Element {name: 'ReorderPoint_FactProductInventory', fullName: 'dbo.FactProductInventory.ReorderPoint', dataSource: 'dbo.FactProductInventory'})
-CREATE (e9:Element {name: 'CustomerKey_FactInternetSales', fullName: 'dbo.FactInternetSales.CustomerKey', dataSource: 'dbo.FactInternetSales'})
-CREATE (e10:Element {name: 'ItemSalesAmount_WarrantyFacts', fullName: 'dbo.WarrantyFacts.ItemSalesAmount', dataSource: 'dbo.WarrantyFacts'})
-CREATE (e11:Element {name: 'WarrantyCharges_WarrantyFacts', fullName: 'dbo.WarrantyFacts.WarrantyCharges', dataSource: 'dbo.WarrantyFacts'})
-
-CREATE (kpi1)-[:HAS_ELEMENT {relationship: 'Directly Proportional', filter: false, calculation: true}]->(e1)
-CREATE (kpi1)-[:HAS_ELEMENT {relationship: 'Inverse Reciprocal', filter: true, calculation: true}]->(e2)
-CREATE (kpi1)-[:HAS_ELEMENT {relationship: 'N/A', filter: true, calculation: false}]->(e3)
-CREATE (kpi2)-[:HAS_ELEMENT {relationship: 'Inverse Reciprocal', filter: false, calculation: true}]->(e4)
-CREATE (kpi2)-[:HAS_ELEMENT {relationship: 'Directly Proportional', filter: false, calculation: true}]->(e5)
-CREATE (kpi2)-[:HAS_ELEMENT {relationship: 'N/A', filter: true, calculation: false}]->(e6)
-CREATE (kpi3)-[:HAS_ELEMENT {relationship: 'Directly Proportional', filter: false, calculation: true}]->(e4)
-CREATE (kpi3)-[:HAS_ELEMENT {relationship: 'N/A', filter: true, calculation: false}]->(e6)
-CREATE (kpi4)-[:HAS_ELEMENT {relationship: 'Directly Proportional', filter: false, calculation: true}]->(e7)
-CREATE (kpi4)-[:HAS_ELEMENT {relationship: 'Inverse Reciprocal', filter: false, calculation: true}]->(e8)
-CREATE (kpi4)-[:HAS_ELEMENT {relationship: 'N/A', filter: true, calculation: false}]->(e3)
-CREATE (kpi5)-[:HAS_ELEMENT {relationship: 'Directly Proportional', filter: false, calculation: true}]->(e9)
-CREATE (kpi5)-[:HAS_ELEMENT {relationship: 'N/A', filter: true, calculation: false}]->(e6)
-CREATE (kpi6)-[:HAS_ELEMENT {relationship: 'Inverse Reciprocal', filter: false, calculation: true}]->(e10)
-CREATE (kpi6)-[:HAS_ELEMENT {relationship: 'Directly Proportional', filter: false, calculation: true}]->(e11)
-
-CREATE (e4)-[:SIMILAR_TO {description: 'Both elements relate to the amount of sales, but in different contexts.', probability: 0.8}]->(e10)
-CREATE (e7)-[:SIMILAR_TO {description: 'Both elements represent quantities of items in different contexts.', probability: 0.9}]->(e8)
-CREATE (e8)-[:SIMILAR_TO {description: 'Both elements represent quantities of items in different contexts.', probability: 0.9}]->(e7)
-CREATE (e4)-[:CONTAINS {description: 'SalesAmount is derived from OrderQuantity * UnitPrice.', probability: 1}]->(e7)
+CREATE 
+  (kpi1:KPI {name: 'SupportTicketKPI', owner: 'Support Manager'}),
+  (kpi2:KPI {name: 'ProfitMarginKPI', owner: 'CFO'}),
+  (kpi3:KPI {name: 'SalesKPIStatus', owner: 'Sales Manager'}),
+  (kpi4:KPI {name: 'InventoryKPIStatus', owner: 'Inventory Manager'}),
+  (kpi5:KPI {name: 'NewCustomerKPIStatus', owner: 'Marketing Manager'}),
+  (kpi6:KPI {name: 'ProfitMarginKPI', owner: 'Warranty Manager'}),
+  
+  (e1:Element {name: 'dbo.FactSupportTickets.ProductKey', elementName: 'ProductKey', dataSource: 'AdventureWorksDW'}),
+  (e2:Element {name: 'dbo.FactProductInventory.ProductKey', elementName: 'ProductKey', dataSource: 'AdventureWorksDW'}),
+  (e3:Element {name: 'dbo.FactProductInventory.MovementDate', elementName: 'MovementDate', dataSource: 'AdventureWorksDW'}),
+  (e4:Element {name: 'dbo.FactInternetSales.SalesAmount', elementName: 'SalesAmount', dataSource: 'AdventureWorksDW'}),
+  (e5:Element {name: 'dbo.FactInternetSales.TotalCost', elementName: 'TotalCost', dataSource: 'AdventureWorksDW'}),
+  (e6:Element {name: 'dbo.FactInternetSales.OrderDate', elementName: 'OrderDate', dataSource: 'AdventureWorksDW'}),
+  (e7:Element {name: 'dbo.FactProductInventory.UnitsBalance', elementName: 'UnitsBalance', dataSource: 'AdventureWorksDW'}),
+  (e8:Element {name: 'dbo.FactProductInventory.ReorderPoint', elementName: 'ReorderPoint', dataSource: 'AdventureWorksDW'}),
+  (e9:Element {name: 'dbo.FactInternetSales.CustomerKey', elementName: 'CustomerKey', dataSource: 'AdventureWorksDW'}),
+  (e10:Element {name: 'dbo.WarrantyFacts.ItemSalesAmount', elementName: 'ItemSalesAmount', dataSource: 'Warranty Database'}),
+  (e11:Element {name: 'dbo.WarrantyFacts.WarrantyCharges', elementName: 'WarrantyCharges', dataSource: 'Warranty Database'}),
+  (e12:Element {name: 'dbo.FactInternetSales.OrderQuantity', elementName: 'OrderQuantity', dataSource: 'AdventureWorksDW'}),
+  (kpi1)-[:HAS_ELEMENT {relationship: 'References', filter: false, calculation: true}]->(e1),
+  (kpi1)-[:HAS_ELEMENT {relationship: 'References', filter: true, calculation: true}]->(e2),
+  (kpi1)-[:HAS_ELEMENT {relationship: 'Directly Proportional', filter: true, calculation: false}]->(e3),
+  (kpi2)-[:HAS_ELEMENT {relationship: 'Directly Proportional', filter: false, calculation: true}]->(e4),
+  (kpi2)-[:HAS_ELEMENT {relationship: 'Inverse Reciprocal', filter: false, calculation: true}]->(e5),
+  (kpi2)-[:HAS_ELEMENT {relationship: 'References', filter: true, calculation: false}]->(e6),
+  (kpi3)-[:HAS_ELEMENT {relationship: 'Directly Proportional', filter: false, calculation: true}]->(e4),
+  (kpi3)-[:HAS_ELEMENT {relationship: 'References', filter: true, calculation: false}]->(e6),
+  (kpi4)-[:HAS_ELEMENT {relationship: 'Directly Proportional', filter: false, calculation: true}]->(e7),
+  (kpi4)-[:HAS_ELEMENT {relationship: 'Directly Proportional', filter: false, calculation: true}]->(e8),
+  (kpi4)-[:HAS_ELEMENT {relationship: 'Directly Proportional', filter: true, calculation: false}]->(e3),
+  (kpi5)-[:HAS_ELEMENT {relationship: 'References', filter: false, calculation: true}]->(e9),
+  (kpi5)-[:HAS_ELEMENT {relationship: 'References', filter: true, calculation: false}]->(e6),
+  (kpi6)-[:HAS_ELEMENT {relationship: 'Directly Proportional', filter: false, calculation: true}]->(e10),
+  (kpi6)-[:HAS_ELEMENT {relationship: 'Inverse Reciprocal', filter: false, calculation: true}]->(e11),
+  (e4)-[:SIMILAR_TO {description: 'SalesAmount is derived from OrderQuantity * UnitPrice.', probability: 1.0}]->(e12),
+  (e7)-[:SIMILAR_TO {description: 'Both represent quantities of items in different contexts.', probability: 0.8}]->(e12),
+  (e8)-[:SIMILAR_TO {description: 'Both represent quantities of items in different contexts.', probability: 0.8}]->(e12),
+  (e4)-[:SIMILAR_TO {description: 'Semantically they might refer to the same concept but come from different databases and tables.', probability: 0.5}]->(e10);

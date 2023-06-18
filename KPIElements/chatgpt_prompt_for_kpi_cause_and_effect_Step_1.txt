@@ -3,7 +3,7 @@ Be sure to analyze the formulas deeply so as to not miss anything in the SELECT,
 Crate a column for:
 1. KPI Name - A name for the KPI. Ensure that KPI nodes do not share the same name.
 2. Element Name - A name for the element, start with just the column name. If element nodes come from the same data source, table name, and column name, they should be represented with the same name, otherwise please construct a unique name. For example [FactInternetSales].[SalesAmount] would be SalesAmount.
-3. the data source
+3. the data source that you determined from the KPI formulas I previously fed you.
 4. Owner - An "owner" property to the KPI nodes, signifying who is responsible for each KPI, such as the Sales Manager or Inventory Manager. 
 5. Full Name - the full name of the element as specified in the formula. For example SalesAmount might be [FactInternetSales].[SalesAmount].
 6. Relationship - state if the element has a "directly proportional" or "inverse reciprocal" relationship in the formula if possible.

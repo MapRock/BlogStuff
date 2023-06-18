@@ -2,4 +2,4 @@ From the first table you just created, please dump it out as Cypher. There shoul
 In one Cypher script - and don't be lazy list the cypher for every single KPI, Element and relationship - do not leave a note saying "fill in the rest in the same way".
 Get distinct rows "Element Name", "Full Name", "Data source". Create an Element node for each with name=[Full Name] and Element Name as a property.
 Link the KPI and Element nodes with HAS_ELEMENT on Element Name along with the 3, 6, 7, 8 column values as properties.
-From the 2nd table you just created add relationships between the elements, along with the probabilites and brief description.
+From the 2nd table you just created (the elements that seem similar) add relationships between the elements, along with the probabilites and brief description and call that relationship SIMILAR_TO.
